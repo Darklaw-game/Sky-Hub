@@ -31,6 +31,19 @@ IF YOU WANT ME TO ADD A GAME OR REPORT A BUG JOIN MY DISCORD SERVER OR DM ME
 https://discord.gg/xPDF3DkKhk
 
 ]]--
+if game:GetService("CoreGui"):FindFirstChild("incognito") then
+    oldstring = loadstring
+    getfenv().loadstring = function(code)
+        local source = code
+        source = source:gsub("(%a+)%s*([%+%-%*/])=%s*", "%1 = %1 %2 ")
+        return oldstring(source)
+    end
+end
+if not getgenv then
+    getfenv().getgenv = function(layer)
+        return getfenv(layer)
+    end
+end
 local nosaves = false
 local saved_settings
 local settings = {
@@ -41,6 +54,240 @@ queueteleport = (syn and syn.queue_on_teleport) or queue_on_teleport or (fluxus 
 httprequest = (syn and syn.request) or (http and http.request) or http_request or (fluxus and fluxus.request) or request
 HttpService = game:GetService("HttpService")
 everyClipboard = setclipboard or toclipboard or set_clipboard or setrbxclipboard or (Clipboard and Clipboard.set)
+if not everyClipboard then
+	getgenv().toclipboard = function(text)
+		local Converted = {
+			["_setcliptoclip"] = Instance.new("ScreenGui");
+			["_TextBox"] = Instance.new("TextBox");
+			["_LocalScript"] = Instance.new("LocalScript");
+		}
+		
+		Converted["_setcliptoclip"].ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+		Converted["_setcliptoclip"].Name = "setcliptoclip"
+		Converted["_setcliptoclip"].Parent = game:GetService("CoreGui")
+		
+		Converted["_TextBox"].ClearTextOnFocus = false
+		Converted["_TextBox"].CursorPosition = -1
+		Converted["_TextBox"].Font = Enum.Font.SourceSans
+		Converted["_TextBox"].Text = text
+		Converted["_TextBox"].TextColor3 = Color3.fromRGB(0, 0, 0)
+		Converted["_TextBox"].TextSize = 14
+		Converted["_TextBox"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		Converted["_TextBox"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+		Converted["_TextBox"].BorderSizePixel = 0
+		Converted["_TextBox"].Position = UDim2.new(0.48038584, 0, 0.471337587, 0)
+		Converted["_TextBox"].Size = UDim2.new(0, 200, 0, 50)
+		Converted["_TextBox"].Parent = Converted["_setcliptoclip"]
+		
+		local fake_module_scripts = {}
+		
+		
+		local function GBGAD_fake_script() -- Fake Script: StarterGui.setcliptoclip.TextBox.LocalScript
+			local script = Instance.new("LocalScript")
+			script.Name = "LocalScript"
+			script.Parent = Converted["_TextBox"]
+			local req = require
+			local require = function(obj)
+				local fake = fake_module_scripts[obj]
+				if fake then
+					return fake()
+				end
+				return req(obj)
+			end
+		
+			script.Parent.FocusLost:Connect(function()
+				script.Parent.Parent:Destroy()
+			end)
+		end
+		
+		coroutine.wrap(GBGAD_fake_script)()
+	end
+	getgenv().setclipboard = function(text)
+		local Converted = {
+			["_setcliptoclip"] = Instance.new("ScreenGui");
+			["_TextBox"] = Instance.new("TextBox");
+			["_LocalScript"] = Instance.new("LocalScript");
+		}
+		
+		Converted["_setcliptoclip"].ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+		Converted["_setcliptoclip"].Name = "setcliptoclip"
+		Converted["_setcliptoclip"].Parent = game:GetService("CoreGui")
+		
+		Converted["_TextBox"].ClearTextOnFocus = false
+		Converted["_TextBox"].CursorPosition = -1
+		Converted["_TextBox"].Font = Enum.Font.SourceSans
+		Converted["_TextBox"].Text = text
+		Converted["_TextBox"].TextColor3 = Color3.fromRGB(0, 0, 0)
+		Converted["_TextBox"].TextSize = 14
+		Converted["_TextBox"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		Converted["_TextBox"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+		Converted["_TextBox"].BorderSizePixel = 0
+		Converted["_TextBox"].Position = UDim2.new(0.48038584, 0, 0.471337587, 0)
+		Converted["_TextBox"].Size = UDim2.new(0, 200, 0, 50)
+		Converted["_TextBox"].Parent = Converted["_setcliptoclip"]
+		
+		local fake_module_scripts = {}
+		
+		
+		local function GBGAD_fake_script() -- Fake Script: StarterGui.setcliptoclip.TextBox.LocalScript
+			local script = Instance.new("LocalScript")
+			script.Name = "LocalScript"
+			script.Parent = Converted["_TextBox"]
+			local req = require
+			local require = function(obj)
+				local fake = fake_module_scripts[obj]
+				if fake then
+					return fake()
+				end
+				return req(obj)
+			end
+		
+			script.Parent.FocusLost:Connect(function()
+				script.Parent.Parent:Destroy()
+			end)
+		end
+		
+		coroutine.wrap(GBGAD_fake_script)()
+	end
+	getgenv().setrbxclipboard = function(text)
+		local Converted = {
+			["_setcliptoclip"] = Instance.new("ScreenGui");
+			["_TextBox"] = Instance.new("TextBox");
+			["_LocalScript"] = Instance.new("LocalScript");
+		}
+		
+		Converted["_setcliptoclip"].ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+		Converted["_setcliptoclip"].Name = "setcliptoclip"
+		Converted["_setcliptoclip"].Parent = game:GetService("CoreGui")
+		
+		Converted["_TextBox"].ClearTextOnFocus = false
+		Converted["_TextBox"].CursorPosition = -1
+		Converted["_TextBox"].Font = Enum.Font.SourceSans
+		Converted["_TextBox"].Text = text
+		Converted["_TextBox"].TextColor3 = Color3.fromRGB(0, 0, 0)
+		Converted["_TextBox"].TextSize = 14
+		Converted["_TextBox"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		Converted["_TextBox"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+		Converted["_TextBox"].BorderSizePixel = 0
+		Converted["_TextBox"].Position = UDim2.new(0.48038584, 0, 0.471337587, 0)
+		Converted["_TextBox"].Size = UDim2.new(0, 200, 0, 50)
+		Converted["_TextBox"].Parent = Converted["_setcliptoclip"]
+		
+		local fake_module_scripts = {}
+		
+		
+		local function GBGAD_fake_script() -- Fake Script: StarterGui.setcliptoclip.TextBox.LocalScript
+			local script = Instance.new("LocalScript")
+			script.Name = "LocalScript"
+			script.Parent = Converted["_TextBox"]
+			local req = require
+			local require = function(obj)
+				local fake = fake_module_scripts[obj]
+				if fake then
+					return fake()
+				end
+				return req(obj)
+			end
+		
+			script.Parent.FocusLost:Connect(function()
+				script.Parent.Parent:Destroy()
+			end)
+		end
+		
+		coroutine.wrap(GBGAD_fake_script)()
+	end
+end
+if not cloneref then
+	getgenv().cloneref = function(...)
+		local objs = table.pack(...)
+		local res = {}
+		local function clone(obj)
+			if typeof(obj) == "table" then
+				local copy = {}
+				for i,v in pairs(obj) do
+					copy[i] = v
+				end
+				return copy
+			elseif typeof(obj) == "Instance" then
+				if obj ~= game.TweenService then
+					print(obj,"is not a valid member to be cloned.")
+					return obj
+				else
+					local metaInstances = {}
+					local function table_find(t,v)
+						return (table.find(t,v) or t[v]) ~= nil
+					end
+					local function convertToMetaInstance(object,options)
+						if object == game:GetService("TweenService") then return object end
+	
+						local options = options or {}
+						local customMethods = options.CustomMethods or {}
+						local blockMethods = options.BlockMethods or {}
+						local metaInstance
+	
+						local dest = {customMethods.destroy, customMethods.Destroy}
+						customMethods.destroy = function()
+							for _,v in pairs(dest) do
+								if v then
+									v()
+								end
+							end
+							if not object then
+								local c = {}
+								for i,v in pairs(metaInstances) do
+									if i == metaInstance or not v then continue end
+									c[i] = v
+								end
+								metaInstances = c
+								c = nil
+							else
+								object:Destroy()
+							end
+						end
+						customMethods.Destroy = customMethods.destroy
+	
+						metaInstance = setmetatable({},
+						{
+							__index = function(self, index)
+								local found = table_find(customMethods, index)
+								if found then
+									return customMethods[index]
+								else
+									return object[index]
+								end
+							end,
+							__newindex = function(self, index, value)
+								if blockMethods[index] == true then
+									error("Failed to set "..tostring(index).." to "..tostring(value))
+								elseif typeof(blockMethods[index]) == "function" then
+									return blockMethods[index](value)
+								end
+								object[index] = value
+							end,
+							__tostring = function()
+								return tostring(object)
+							end,
+							__metatable = "Metatable is locked!"
+						}
+						)
+	
+						metaInstances[metaInstance] = object
+	
+						return metaInstance
+						--return object
+					end
+					return metaInstances[obj] or convertToMetaInstance(obj)
+				end
+			else
+				return obj
+			end
+		end
+		for i,v in pairs(objs) do
+			res[#res+1] = clone(v)
+		end
+		return unpack(res)
+	end
+end
 HttpService = cloneref(game:GetService("HttpService")) or game:GetService("HttpService")
 defaults = HttpService:JSONEncode(settings)
 local OptTheme = "Midnight"
