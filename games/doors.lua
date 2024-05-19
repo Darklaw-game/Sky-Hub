@@ -897,6 +897,15 @@ task.wait()
 local Window = Library.CreateLib("Sky Hub", OptTheme)
 local Main = Window:NewTab("Main")
 local MainSection = Main:NewSection("Main")
+MainSection:NewToggle("God Mode", "rush cant kill you im pretty sure", function(GM)
+	if GM then
+ 		local Collison = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Collision")
+		Collison.Position = Collison.Position - Vector3.new(0,7.5,0)
+	else
+		local Collison = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Collision")
+		Collison.Position = Collison.Position + Vector3.new(0,-7.5,0)
+   	end
+end)
 MainSection:NewToggle("Closet Exit Fix", "Fixes the bug where you can't exit a closet right after entering it", function(state)
 	ClosetExitFix = state
 end)
