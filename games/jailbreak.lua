@@ -325,7 +325,7 @@ MainSection:NewButton("Project Auto V4", "Auto Rob and Kill Aura USE ALT!!!", fu
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Pxsta72/ProjectAuto/main/AutoRobV4Release"))()
 end)
 MainSection:NewButton("Tempcode", "Dropfarm", function()
-	loadstring(game:HttpGet("https://dropfarms.xyz/free.lua"))()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/TempIsGay/free/main/main.lua"))()
 end)
 MainSection:NewButton("Owl Hub", "Owl Hub", function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/CriShoux/OwlHub/master/OwlHub.txt"))();
