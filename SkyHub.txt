@@ -399,6 +399,9 @@ elseif game.PlaceId == 3623096087 then
 -- Road to Grambys from Luau
 elseif game.PlaceId == 5796917097 then
 	loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/games/roadtogrambys.lua'))()
+-- Bloxburg
+elseif game.PlaceId == 185655149 then
+	loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/games/bloxburg.lua'))()
 -- Doors
 elseif game.PlaceId == 6516141723 or game.PlaceId == 6839171747 then
 	loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/games/doors.lua'))()
