@@ -531,3 +531,710 @@ MainSection:NewButton("Thunder Client", "OP ASF", function()
 	getgenv().thunderclient = true
 	loadstring(game:HttpGet("https://api.luarmor.net/files/v3/verified/dca3e69649ed196af0ac6577f743a0ae.lua"))()
 end)
+local Player = Window:NewTab("Player", 2795572800)
+local PlayerSection = Player:NewSection("Player")
+PlayerSection:NewSlider("WalkSpeed", "Changes how fast you walk", 500, 1, function(v)
+	game:GetService("Players").LocalPlayer.Character.Humanoid.WalkSpeed = v
+end)
+PlayerSection:NewSlider("Jumppower", "Changes how high you jump", 500, 1, function(v)
+	game:GetService("Players").LocalPlayer.Character.Humanoid.JumpPower = v
+end)
+PlayerSection:NewSlider("Gravity", "Changes gravity", 500, 1, function(v)
+	game:GetService("Workspace").Gravity = v
+end)
+PlayerSection:NewSlider("FOV", "Changes Field Of View", 120, 1, function(v)
+	game:GetService("Workspace"):WaitForChild("Camera").FieldOfView = v
+end)
+PlayerSection:NewButton("Unlock Third Person", "unlocks on most games", function()
+	game:GetService("Players").LocalPlayer.CameraMaxZoomDistance = 99999
+	game:GetService("Players").LocalPlayer.CameraMode = Enum.CameraMode.Classic
+end)
+PlayerSection:NewSlider("Max Camera Zoom", "Changes zoom distance of camera", 99999, 1, function(v)
+	game:GetService("Players").LocalPlayer.CameraMaxZoomDistance = v
+end)
+PlayerSection:NewButton("Anti Lag/Low GFX", "makes you less laggy and helps boost fps/performance", function()
+	local Terrain = game:GetService("Workspace"):FindFirstChildOfClass('Terrain')
+	Terrain.WaterWaveSize = 0
+	Terrain.WaterWaveSpeed = 0
+	Terrain.WaterReflectance = 0
+	Terrain.WaterTransparency = 0
+	Lighting.GlobalShadows = false
+	Lighting.FogEnd = 9e9
+	settings().Rendering.QualityLevel = 1
+	for i, v in pairs(game:GetDescendants()) do
+		if v:IsA("Part") or v:IsA("UnionOperation") or v:IsA("MeshPart") or v:IsA("CornerWedgePart") or v:IsA("TrussPart") then
+			v.Material = "Plastic"
+			v.Reflectance = 0
+		elseif v:IsA("Decal") then
+			v.Transparency = 1
+		elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
+			v.Lifetime = NumberRange.new(0)
+		elseif v:IsA("Explosion") then
+			v.BlastPressure = 1
+			v.BlastRadius = 1
+		end
+	end
+	for i, v in pairs(Lighting:GetDescendants()) do
+		if v:IsA("BlurEffect") or v:IsA("SunRaysEffect") or v:IsA("ColorCorrectionEffect") or v:IsA("BloomEffect") or v:IsA("DepthOfFieldEffect") then
+			v.Enabled = false
+		end
+	end
+	game:GetService("Workspace").DescendantAdded:Connect(function(child)
+		task.spawn(function()
+			if child:IsA('ForceField') then
+				RunService.Heartbeat:Wait()
+				child:Destroy()
+			elseif child:IsA('Sparkles') then
+				RunService.Heartbeat:Wait()
+				child:Destroy()
+			elseif child:IsA('Smoke') or child:IsA('Fire') then
+				RunService.Heartbeat:Wait()
+				child:Destroy()
+			end
+		end)
+	end)
+end)
+PlayerSection:NewToggle("Anti-AFK", "so you cant disconnect after 20 minutes of idling", function(state)
+	if state then
+		ANTIAFK = game:GetService("Players").LocalPlayer.Idled:connect(function()
+			game:FindService("VirtualUser"):Button2Down(Vector2.new(0, 0), game:GetService("Workspace").CurrentCamera.CFrame)
+			task.wait(1)
+			game:FindService("VirtualUser"):Button2Up(Vector2.new(0, 0), game:GetService("Workspace").CurrentCamera.CFrame)
+		end)
+		Library.Notify("WARNING", "Successfully Enabled Anti-AFK!", 5)
+	else
+		if ANTIAFK then
+			ANTIAFK:Disconnect()
+			wait();
+			Library.Notify("WARNING", "Successfully Disabled Anti-AFK!", 5)
+		end
+	end
+end)
+PlayerSection:NewToggle("Loop Full Bright", "makes game bright so if its dark u can actually see", function(state)
+	local aLighting = game:GetService("Lighting")
+	local oldbrit = aLighting.Brightness
+	local oldclocktime = aLighting.ClockTime
+	local oldfogend = aLighting.FogEnd
+	local oldglobshads = aLighting.GlobalShadows
+	local oldoutdooramb = aLighting.OutdoorAmbient
+	local Lighting = cloneref(game:GetService("Lighting"))
+	if not state then
+		brightLoop:Disconnect()
+		Lighting.Brightness = oldbrit
+		Lighting.ClockTime = oldclocktime
+		Lighting.FogEnd = oldfogend
+		Lighting.GlobalShadows = oldglobshads
+		Lighting.OutdoorAmbient = oldoutdooramb
+	end
+	local function brightFunc()
+		Lighting.Brightness = 2
+		Lighting.ClockTime = 14
+		Lighting.FogEnd = 100000
+		Lighting.GlobalShadows = false
+		Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)
+	end
+	brightLoop = game:GetService("RunService").RenderStepped:Connect(brightFunc)
+end)
+if IsOnMobile or VREnabled then
+	PlayerSection:NewButton("enable Shiftlock", "unlocks on most games", function()
+		Library.Notify("Shift Lock Enabled", "Gui should pop up on your right", 5)
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub-Backup/main/mobileshiftlock.txt"))()
+	end)
+else
+	PlayerSection:NewToggle("enable/disable shiftlock", "unlocks on most games", function(value)
+		game:GetService("Players").LocalPlayer.DevEnableMouseLock = value
+		if value then
+			Library.Notify("Shift Lock Enabled", "Just press shift or enable it in roblox settings", 5)
+		else
+			Library.Notify("Shift Lock Disabled", "", 5)
+		end
+	end)
+end
+local Settingss = Window:NewTab("Settings", 11385220704)
+local SettingssSection = Settingss:NewSection("Settings")
+SettingssSection:NewDropdown("UI Toggle Bind", "Changes Toggle Bind for Sky Hub Default is Right Control ONLY ON PC", {
+	"Right Control",
+	"Left Control",
+	"Left Alt",
+	"Right Alt",
+	"Insert",
+	"End",
+	"Del/Delete",
+	"Left Shift",
+	"Right Shift",
+	"F1",
+	"Q",
+	"E",
+	"R",
+	"T",
+	"Y",
+	"U",
+	"P",
+	"Z",
+	"X",
+	"M",
+	"V",
+	"N",
+	"."
+}, function(currentoption)
+	if currentoption == "Right Control" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.RightControl"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "Left Control" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.LeftControl"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "Left Alt" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.LeftAlt"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "Right Alt" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.RightAlt"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "Insert" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.Insert"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "End" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.End"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "Del/Delete" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.Delete"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "Left Shift" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.LeftShift"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "Right Shift" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.RightShift"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "F1" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.F1"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "Q" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.Q"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "E" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.E"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "R" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.R"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "T" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.T"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "Y" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.Y"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "U" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.U"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "P" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.P"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "Z" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.Z"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "X" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.X"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "M" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.M"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "V" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.V"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "N" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.N"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "." then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.Period"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	end
+end)
+SettingssSection:NewSlider("Blur/Opaque Intensitiy", "Changes blurryness", 1, 0, function(v)
+	getgenv().BlurIntes = v
+	opaque = getgenv().BlurIntes
+	task.wait()
+	if writefile then
+		updatesaves()
+		task.wait()
+		loadsettings()
+	else
+		Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+	end
+end)
+SettingssSection:NewButton("Save Game", "Saves game MUST HAVE saveinstance()", function()
+	local SSSSSS = ""
+	if identifyexecutor then
+		SSSSSS = select(1, identifyexecutor())
+	end
+	if SSSSSS == "Krampus" then
+		saveplace({
+			FileName = "SkyHubSavedGame",
+			CopyToClipboard = true
+		})
+		return
+	end
+	if saveplace then
+		saveplace({
+			FileName = "SkyHubSavedGame"
+		})
+	end
+	if saveinstance then
+		saveinstance()
+	else
+		Library.Notify("Your executor doesnt have a saveinstance() function try Save Game 2", "", 10)
+	end
+end)
+SettingssSection:NewButton("Save Game 2", "Saves game dont need saveinstance()", function()
+	getgenv().saveinstance = nil
+	loadstring(game:HttpGet("https://github.com/MuhXd/Roblox-mobile-script/blob/main/Arecus-X-Neo/Saveinstance.lua?raw=true"))();
+end)
+local Games = Window:NewTab("Games", 12689980465)
+local GamesSection = Games:NewSection("Games")
+GamesSection:NewButton("Da Hood", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(2788229376, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Arsenal", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(286090429, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Tower of Hell", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(1962086868, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("KAT", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(621129760, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Fencing", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(12109643, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Work at a Pizza Place", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(192800, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("VR Hands", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(4832438542, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Adopt Me!", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(920587237, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Jailbreak", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(606849621, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Prison Life", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(155615604, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Build A Boat For Treasure", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(537413528, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Gorilla Tag Professional", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(8690998110, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Murder Mystery 2", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(142823291, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Blox Fruits", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(2753915549, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Counter Blox", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(301549746, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Mic Up", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(6884319169, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Neighbors", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(12699642568, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Natural Disaster Survival", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(189707, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Ro-Ghoul", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(914010731, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Blade Ball", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(13772394625, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Pet Simulator X", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(13772394625, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Pet Simulator 99", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(8737899170, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Legends Of Speed", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(3101667897, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Brookhaven RP", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(4924922222, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Bedwars", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(6872265039, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("CHAOS", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(6441847031, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Ninja Legends", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(3956818381, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Bayside High School", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(12640491155, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("BIG Paintball!", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(3527629287, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("BIG Paintball 2!", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(9865958871, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Muscle Legends", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(3623096087, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Road to Grambys", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(5796917097, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Bloxburg", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(185655149, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Cursed Sea", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(14426444782, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Doors", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(6516141723, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Hide and Seek Extreme", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(205224386, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Life in Paradise", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(1662219031, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Adopt and Raise a Baby", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(383793228, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Zombie Attack", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(1240123653, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Super Simon Says", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(61846006, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Life Sentence", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(13083893317, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Rainbow Friends", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(7991339063, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Infectious Smile", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(5985232436, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Colony Survival", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(14888386963, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Red Light, Green Light", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(7540891731, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("3008", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(2768379856, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("Guess the drawing!", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(3281073759, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("VR Hangout", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(8769714622, game:GetService("Players").LocalPlayer)
+end)
+GamesSection:NewButton("VR Hands Legacy", "Teleports you to game", function()
+	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+	game:GetService("TeleportService"):Teleport(16912831373, game:GetService("Players").LocalPlayer)
+end)
