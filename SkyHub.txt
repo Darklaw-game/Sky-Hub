@@ -9,14 +9,14 @@ Work At A Pizza Place, VR Hands, Adopt Me, Jailbreak, Prison Life,
 Build A Boat For Treasure, Gorilla Tag Professional, Murder Mystery 2, Blox Fruits, Counter Blox, Mic Up, Neighbors, Natural Disaster Survival, Ro-Ghoul, Blade Ball, Pet Simulator X,
 Pet Simulator 99, Legends of Speed, BrookHaven RP, Bedwars, CHAOS, Ninja Legends, Bayside High School, BIG PaintBall!, BIG PaintBall 2!, Muscle Legends, Road to Grambys, Bloxburg, Cursed Sea, Doors,
 Hide and Seek Extreme, Life in Paradise, Adopt and Raise a Baby, Zombie Attack, Super Simon Says, Life Sentence, Rainbow Friends, Infectious Smile, Colony Survival, Red Light, Green Light, 3008, 
-Guess the drawing! and Universal.
-45+ games (Including some obbys)
+Guess the drawing!, VR Hangout, VR Hands Legacy and Universal.
+50+ games (Including some obbys)
 
 Rebuilt On IllusionHub
 
-Last Updated 05/07/2024
+Last Updated 05/23/2024
 
-Added Guess the drawing! and more stuff to player tab and in other games.
+Added VR Hangout, and VR Hands Legacy
 
 Library by Lua_u
 
@@ -438,6 +438,12 @@ elseif game.PlaceId == 2768379856 then
 -- Guess the drawing!
 elseif game.PlaceId == 3281073759 then
 	loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/games/guessthedrawing.lua'))()
+-- VR Hangout
+elseif game.PlaceId == 8769714622 then
+	loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/games/vrhangout.lua'))()
+-- VR Hands Legacy
+elseif game.PlaceId == 16912831373 then
+	loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/games/vrhandslegacy.lua'))()
 -- Universal
 else
 	local Library = loadstring(game:HttpGet(_G.guidragtype))()
@@ -1400,6 +1406,14 @@ else
 	GamesSection:NewButton("Guess the drawing!", "Teleports you to game", function()
 		queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
         game:GetService("TeleportService"):Teleport(3281073759,game:GetService("Players").LocalPlayer)
+	end)
+	GamesSection:NewButton("VR Hangout", "Teleports you to game", function()
+		queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+		game:GetService("TeleportService"):Teleport(8769714622, game:GetService("Players").LocalPlayer)
+	end)
+	GamesSection:NewButton("VR Hands Legacy", "Teleports you to game", function()
+		queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+		game:GetService("TeleportService"):Teleport(16912831373, game:GetService("Players").LocalPlayer)
 	end)
 	local Hubs = Window:NewTab("Hubs", 7360649366)
 	local HubsSection = Hubs:NewSection("Hubs")
