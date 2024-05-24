@@ -1,15 +1,15 @@
 if game:GetService("CoreGui"):FindFirstChild("incognito") then
-    oldstring = loadstring
-    getfenv().loadstring = function(code)
-        local source = code
-        source = source:gsub("(%a+)%s*([%+%-%*/])=%s*", "%1 = %1 %2 ")
-        return oldstring(source)
-    end
+	oldstring = loadstring
+	getfenv().loadstring = function(code)
+		local source = code
+		source = source:gsub("(%a+)%s*([%+%-%*/])=%s*", "%1 = %1 %2 ")
+		return oldstring(source)
+	end
 end
 if not getgenv then
-    getfenv().getgenv = function(layer)
-        return getfenv(layer)
-    end
+	getfenv().getgenv = function(layer)
+		return getfenv(layer)
+	end
 end
 local nosaves = false
 local saved_settings
@@ -23,126 +23,144 @@ HttpService = game:GetService("HttpService")
 everyClipboard = setclipboard or toclipboard or set_clipboard or setrbxclipboard or (Clipboard and Clipboard.set)
 if not everyClipboard then
 	-- creds to vxsty
-getgenv().setclipboard = function(data)
-    local vim = game:GetService('VirtualInputManager');
-    local old = game:GetService("UserInputService"):GetFocusedTextBox()
-    local copy = tostring(data)
-    local gui = Instance.new("ScreenGui", getgenv().gethui())
-    local a = Instance.new('TextBox', gui)
-    a.PlaceholderText = ''
-    a.Text = copy
-    a.ClearTextOnFocus = false
-    a.Size = UDim2.new(.1, 0, .15, 0)
-    a.Position = UDim2.new(10, 0, 10, 0)
-    a:CaptureFocus()
-    a = Enum.KeyCode
-    local Keys = {
-     a.RightControl, a.A
-    }
-    local Keys2 = {
-     a.RightControl, a.C, a.V
-    }
-    for i, v in ipairs(Keys) do
-     vim:SendKeyEvent(true, v, false, game)
-     task.wait()
-    end
-    for i, v in ipairs(Keys) do
-     vim:SendKeyEvent(false, v, false, game)
-     task.wait()
-    end
-    for i, v in ipairs(Keys2) do
-     vim:SendKeyEvent(true, v, false, game)
-     task.wait()
-    end
-    for i, v in ipairs(Keys2) do
-     vim:SendKeyEvent(false, v, false, game)
-     task.wait()
-    end
-    gui:Destroy()
-    if old then old:CaptureFocus() end
-end
+	getgenv().setclipboard = function(data)
+		local vim = game:GetService('VirtualInputManager');
+		local old = game:GetService("UserInputService"):GetFocusedTextBox()
+		local copy = tostring(data)
+		local gui = Instance.new("ScreenGui", getgenv().gethui())
+		local a = Instance.new('TextBox', gui)
+		a.PlaceholderText = ''
+		a.Text = copy
+		a.ClearTextOnFocus = false
+		a.Size = UDim2.new(.1, 0, .15, 0)
+		a.Position = UDim2.new(10, 0, 10, 0)
+		a:CaptureFocus()
+		a = Enum.KeyCode
+		local Keys = {
+			a.RightControl,
+			a.A
+		}
+		local Keys2 = {
+			a.RightControl,
+			a.C,
+			a.V
+		}
+		for i, v in ipairs(Keys) do
+			vim:SendKeyEvent(true, v, false, game)
+			task.wait()
+		end
+		for i, v in ipairs(Keys) do
+			vim:SendKeyEvent(false, v, false, game)
+			task.wait()
+		end
+		for i, v in ipairs(Keys2) do
+			vim:SendKeyEvent(true, v, false, game)
+			task.wait()
+		end
+		for i, v in ipairs(Keys2) do
+			vim:SendKeyEvent(false, v, false, game)
+			task.wait()
+		end
+		gui:Destroy()
+		if old then
+			old:CaptureFocus()
+		end
+	end
 -- creds to vxsty
-getgenv().setrbxclipboard = function(data)
-    local vim = game:GetService('VirtualInputManager');
-    local old = game:GetService("UserInputService"):GetFocusedTextBox()
-    local copy = tostring(data)
-    local gui = Instance.new("ScreenGui", getgenv().gethui())
-    local a = Instance.new('TextBox', gui)
-    a.PlaceholderText = ''
-    a.Text = copy
-    a.ClearTextOnFocus = false
-    a.Size = UDim2.new(.1, 0, .15, 0)
-    a.Position = UDim2.new(10, 0, 10, 0)
-    a:CaptureFocus()
-    a = Enum.KeyCode
-    local Keys = {
-     a.RightControl, a.A
-    }
-    local Keys2 = {
-     a.RightControl, a.C, a.V
-    }
-    for i, v in ipairs(Keys) do
-     vim:SendKeyEvent(true, v, false, game)
-     task.wait()
-    end
-    for i, v in ipairs(Keys) do
-     vim:SendKeyEvent(false, v, false, game)
-     task.wait()
-    end
-    for i, v in ipairs(Keys2) do
-     vim:SendKeyEvent(true, v, false, game)
-     task.wait()
-    end
-    for i, v in ipairs(Keys2) do
-     vim:SendKeyEvent(false, v, false, game)
-     task.wait()
-    end
-    gui:Destroy()
-    if old then old:CaptureFocus() end
-end
+	getgenv().setrbxclipboard = function(data)
+		local vim = game:GetService('VirtualInputManager');
+		local old = game:GetService("UserInputService"):GetFocusedTextBox()
+		local copy = tostring(data)
+		local gui = Instance.new("ScreenGui", getgenv().gethui())
+		local a = Instance.new('TextBox', gui)
+		a.PlaceholderText = ''
+		a.Text = copy
+		a.ClearTextOnFocus = false
+		a.Size = UDim2.new(.1, 0, .15, 0)
+		a.Position = UDim2.new(10, 0, 10, 0)
+		a:CaptureFocus()
+		a = Enum.KeyCode
+		local Keys = {
+			a.RightControl,
+			a.A
+		}
+		local Keys2 = {
+			a.RightControl,
+			a.C,
+			a.V
+		}
+		for i, v in ipairs(Keys) do
+			vim:SendKeyEvent(true, v, false, game)
+			task.wait()
+		end
+		for i, v in ipairs(Keys) do
+			vim:SendKeyEvent(false, v, false, game)
+			task.wait()
+		end
+		for i, v in ipairs(Keys2) do
+			vim:SendKeyEvent(true, v, false, game)
+			task.wait()
+		end
+		for i, v in ipairs(Keys2) do
+			vim:SendKeyEvent(false, v, false, game)
+			task.wait()
+		end
+		gui:Destroy()
+		if old then
+			old:CaptureFocus()
+		end
+	end
 -- creds to vxsty
-getgenv().toclipboard = function(data)
-    local vim = game:GetService('VirtualInputManager');
-    local old = game:GetService("UserInputService"):GetFocusedTextBox()
-    local copy = tostring(data)
-    local gui = Instance.new("ScreenGui", getgenv().gethui())
-    local a = Instance.new('TextBox', gui)
-    a.PlaceholderText = ''
-    a.Text = copy
-    a.ClearTextOnFocus = false
-    a.Size = UDim2.new(.1, 0, .15, 0)
-    a.Position = UDim2.new(10, 0, 10, 0)
-    a:CaptureFocus()
-    a = Enum.KeyCode
-    local Keys = {
-     a.RightControl, a.A
-    }
-    local Keys2 = {
-     a.RightControl, a.C, a.V
-    }
-    for i, v in ipairs(Keys) do
-     vim:SendKeyEvent(true, v, false, game)
-     task.wait()
-    end
-    for i, v in ipairs(Keys) do
-     vim:SendKeyEvent(false, v, false, game)
-     task.wait()
-    end
-    for i, v in ipairs(Keys2) do
-     vim:SendKeyEvent(true, v, false, game)
-     task.wait()
-    end
-    for i, v in ipairs(Keys2) do
-     vim:SendKeyEvent(false, v, false, game)
-     task.wait()
-    end
-    gui:Destroy()
-    if old then old:CaptureFocus() end
-end
+	getgenv().toclipboard = function(data)
+		local vim = game:GetService('VirtualInputManager');
+		local old = game:GetService("UserInputService"):GetFocusedTextBox()
+		local copy = tostring(data)
+		local gui = Instance.new("ScreenGui", getgenv().gethui())
+		local a = Instance.new('TextBox', gui)
+		a.PlaceholderText = ''
+		a.Text = copy
+		a.ClearTextOnFocus = false
+		a.Size = UDim2.new(.1, 0, .15, 0)
+		a.Position = UDim2.new(10, 0, 10, 0)
+		a:CaptureFocus()
+		a = Enum.KeyCode
+		local Keys = {
+			a.RightControl,
+			a.A
+		}
+		local Keys2 = {
+			a.RightControl,
+			a.C,
+			a.V
+		}
+		for i, v in ipairs(Keys) do
+			vim:SendKeyEvent(true, v, false, game)
+			task.wait()
+		end
+		for i, v in ipairs(Keys) do
+			vim:SendKeyEvent(false, v, false, game)
+			task.wait()
+		end
+		for i, v in ipairs(Keys2) do
+			vim:SendKeyEvent(true, v, false, game)
+			task.wait()
+		end
+		for i, v in ipairs(Keys2) do
+			vim:SendKeyEvent(false, v, false, game)
+			task.wait()
+		end
+		gui:Destroy()
+		if old then
+			old:CaptureFocus()
+		end
+	end
 end
 if not cloneref then
 	getgenv().cloneref = function(a)
-		local s, _ = pcall(function() return a:Clone() end) return s and _ or a
+		local s, _ = pcall(function()
+			return a:Clone()
+		end)
+		return s and _ or a
 	end
 end
 HttpService = cloneref(game:GetService("HttpService")) or game:GetService("HttpService")
@@ -270,52 +288,10 @@ function loadsettings()
 end
 task.wait()
 save()
+-- dont expect much kinda annoying game to script
 local Library = loadstring(game:HttpGet(_G.guidragtype))()
 loadsettings()
-if IsOnMobile or VREnabled then
-	Library.Notify("Warning", 'your OS is not supported with some scripts since of keyboard functions, do you want to execute a keyboard script?', 35, function(val)
-		if val == true then
-		else
-			loadstring(game:HttpGet("https://raw.githubusercontent.com/advxzivhsjjdhxhsidifvsh/mobkeyboard/main/main.txt"))()
-		end
-	end, {
-		"Yes Please!",
-		"Nah"
-	})
-end
-if iswave then
-	Library.Notify("Warning", 'Your Executor "Wave" Is dog shit and file functions are shit so would you like a fix for them so more support for more scripts or disable them? or ingore this and keep somewhat functions (takes abt 40 secs to go away)', 35, function(val)
-		if val == true then
-			loadstring(game:HttpGet("https://raw.githubusercontent.com/yofriendfromschool1/wave_fixedscripts/main/Disable%20file%20and%20folder%20functions%20Wave.lua"))()
-		else
-			loadstring(game:HttpGet("https://raw.githubusercontent.com/yofriendfromschool1/wave_fixedscripts/main/FileFixes.lua"))()
-		end
-	end, {
-		"Enable Fix for file functions",
-		"Disable File/Folder functions"
-	})
-end
-if queueteleport then
-	Library.Notify("Warning", "Would you like to bring this script with you on teleport/ to the next game?", 15, function(val)
-		if val == true then
-		else
-			queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
-		end
-	end, {
-		"Yes",
-		"No thanks."
-	})
-end
-if writefile and readfile and makefolder then
-else
-	Library.Notify("Warning", "Your Executor does not support saving files, Settings will not save.", 15)
-end
-if not IsOnMobile then
-	Library.Notify("Current Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your current keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
-end
 local Window = Library.CreateLib("Sky Hub", OptTheme)
-local Main = Window:NewTab("Main")
-local MainSection = Main:NewSection("Main")
 local Discord = Window:NewTab("Discords", 16795709379)
 local DiscordSection = Discord:NewSection("Discords")
 DiscordSection:NewButton("Discord Invite", "copys discord link", function()
@@ -346,353 +322,20 @@ end)
 DiscordSection:NewButton("Discord Invite OLD", "Copys Discord invite link", function()
 	everyClipboard(string2)
 end)
-local Admins = Window:NewTab("Admins", 10016551771)
-local AdminsSection = Admins:NewSection("Admins")
-AdminsSection:NewButton("Infinite Yield FE", "Admin", function()
-	loadstring(game:HttpGet(_G.infydtype))()
+local Main = Window:NewTab("Main")
+local MainSection = Main:NewSection("Main")
+MainSection:NewButton("Vedrox Free", "Free", function()
+	loadstring(game:HttpGet("https://vedrox.com/data/scripts/free/script.lua"))()
 end)
-AdminsSection:NewButton("Infinite Store", "Archived", function()
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/Infinite-Store/Infinite-Store/main/main.lua"))()
+MainSection:NewButton("Vysor Free", "Free", function()
+	loadstring(game:HttpGet("https://vedrox.com/data/scripts/free/script.lua"))()
 end)
-AdminsSection:NewButton("Nameless Admin", "Admin", function()
-	loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/NamelessAdmin-NO-BYFRON-GUI/main/Source'))()
+MainSection:NewButton("VG Hub", "60+", function()
+	loadstring(game:HttpGet("https://vysorbloxburg.vercel.app/free.lua", true))()
 end)
-AdminsSection:NewButton("fates admin", "Admin", function()
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/fatesc/fates-admin/main/main.lua"))();
-end)
-AdminsSection:NewButton("Cmd", "Admin", function()
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/lxte/cmd/main/main.lua"))()
-end)
-AdminsSection:NewButton("Cmd (TEST)", "Admin tests", function()
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/lxte/cmd/main/testing-main.lua"))()
-end)
-AdminsSection:NewButton("Shattervast Admin", "Admin", function()
-	loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub-Backup/main/%5BFE%5D%20Shattervast.lua'))()
-end)
-AdminsSection:NewButton("Proton Free Admin", "Admin", function()
-	_G.UI_Id = "default" --set this to "default" for the default ui
-	loadstring(game:HttpGet('https://raw.githubusercontent.com/DigitalityScripts/roblox-scripts/main/Proton%20Free'))()
-end)
-AdminsSection:NewButton("Proton 2 free Admin", "Admin", function()
-			 -- DEFAULT CMD BAR PREFIX IS ;
-			 -- DEFAULT CHAT PREFIX IS /
-	_G.UI_Id = "default" --set this to "default" for the default ui
-	loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/5e6e6cc1bb32fd926764d064e2c60a3b.lua"))()
-end)
-AdminsSection:NewButton("Reviz Admin V2", "Admin", function()
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/Reviz%20AdminV2"))()
-end)
-local Hubs = Window:NewTab("Hubs", 7360649366)
-local HubsSection = Hubs:NewSection("Hubs")
-if IsOnMobile or VREnabled then
-	HubsSection:NewButton("Mobile Keyboard Script", "For mobile users", function()
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/advxzivhsjjdhxhsidifvsh/mobkeyboard/main/main.txt"))()
-	end)
-end
-HubsSection:NewButton("FE Trolling GUI", "FE Scripts and more.", function()--
-	loadstring(game:HttpGet(('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/FE%20Trolling%20GUI.luau'), true))()
-end)
-HubsSection:NewButton("Sirius", "cool asl", function()--
-	loadstring(game:HttpGet(('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub-Backup/main/Sirius/Sirius.txt'), true))()
-end)
-HubsSection:NewButton("Orca", "cool asff", function()--
-	loadstring(game:HttpGet(('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub-Backup/main/Orca/latest.lua'), true))()
-end)
-HubsSection:NewButton("Hoho Hub", "key should be and if not then do it urself", function()
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/acsu123/HohoV2/main/ScriptLoad.lua"))()
-end)
-HubsSection:NewButton("Psyhub", "idk", function()
-	loadstring(game:GetObjects("rbxassetid://3014051754")[1].Source)()
-end)
-HubsSection:NewButton("VG Hub", "60+", function()
-	loadstring(game:HttpGet('https://raw.githubusercontent.com/1201for/V.G-Hub/main/V.Ghub'))()
-end)
-HubsSection:NewButton("Ezhub", "130+ games", function()--
-	loadstring(game:HttpGet(('https://raw.githubusercontent.com/debug420/Ez-Industries-Launcher-Data/master/Launcher.lua'), true))()--
-end)
-HubsSection:NewButton("Owl Hub", "46+ how", function()
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/CriShoux/OwlHub/master/OwlHub.txt"))();
-end)
-HubsSection:NewButton("CocoHub", "idk", function()
+MainSection:NewButton("CocoHub", "idk", function()
 	loadstring(game:HttpGet(('https://raw.githubusercontent.com/MarsQQ/CocoHub/master/CocoZHub'), true))()
 end)
-HubsSection:NewButton("MonkeHub", "idk", function()
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/KuriWasTaken/MonkeHub/main/Loader.lua"))()
-end)
-MainSection:NewButton("FE Trolling GUI", "troll", function()
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/FE%20Trolling%20GUI.luau"))()
-end)
-if not VREnabled then
-	MainSection:NewButton("Get VR Players", "notify VR Players", function()
-		local usersid = {}
-		for i, v in pairs(game:GetService("Workspace"):GetChildren()) do
-			if string.sub(v.Name, -4) == "Head" then
-				table.insert(usersid,tonumber(string.sub(v.Name, 1, -5)))
-			end
-		end
-		for i,v in pairs(game:GetService("Players"):GetPlayers()) do
-			if table.find(usersid, v.UserId) then
-				Library.Notify("VR USER:", v.Name, 5)
-				task.wait(1)
-			end
-		end
-	end)
-	MainSection:NewToggle("Disable VR Hands Collison", "VR People can hit u to space anymore lol", function(state)
-		for i, v in pairs(game:GetService("Workspace"):GetChildren()) do
-			if v:IsA("Model") and v.Name == "LeftHand" or v.Name == "RightHand" then
-				for _, hand in pairs(v:GetDescendants()) do
-					if hand:IsA("Part") or hand:IsA("MeshPart") or hand:IsA("BasePart") then
-						hand.CanCollide = not state
-					end
-				end
-			end
-		end
-	end)
-	MainSection:NewToggle("Disable Props Collison", "props cant hit you no more", function(state)
-		for i, v in pairs(game:GetService("Workspace").Props:GetChildren()) do
-			if v:IsA("Model") then
-				for _, prop in pairs(v:GetDescendants()) do
-					if prop:IsA("Part") or prop:IsA("MeshPart") or prop:IsA("BasePart") then
-						prop.CanCollide = not state
-					end
-				end
-			end
-		end
-	end)
-	MainSection:NewTextBox("Tp to VR User", "teleports to a vr user", function(txt)
-		local player = txt
-		local targname = ""
-		local targchar
-		for i, v in pairs(game:GetService("Players"):GetPlayers()) do
-			if string.sub(string.lower(v.Name), 0, #player) == string.lower(player) or string.sub(string.lower(v.DisplayName), 0, #player) == string.lower(player) and v ~= game:GetService("Players").LocalPlayer  then
-				targname = v
-			end
-		end
-		for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
-			if string.sub(v.Name, -4) == "Head" and tonumber(string.sub(v.Name, 1, -5)) == targname.UserId then
-				targchar = v
-			end
-		end
-		for i, v in pairs(targchar:GetChildren()) do
-			if v.Name == "Head" then
-				game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = v.CFrame
-			end
-		end
-	end)
-	MainSection:NewToggle("Anti Pick up", "spams break free", function(state)
-		getgenv().toggablevr = state
-		task.spawn(function()
-			while true do
-				task.wait()
-				if not getgenv().toggablevr then
-					break
-				end
-				local player = game:GetService("Players").LocalPlayer
-				local character = player.Character
-				local position = character.HumanoidRootPart.Position
-				local radius = 25
-				local region = Region3.new(position - Vector3.new(radius, radius, radius), position + Vector3.new(radius, radius, radius))
-
-				local parts = game:GetService("Workspace"):FindPartsInRegion3(region, nil, math.huge)
-				for _, part in ipairs(parts) do
-					if (part.Name == "REAL" or part.Name == "Base") and (part.Parent.Name == "LeftHand" or part.Parent.Name == "RightHand") then
-						game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(-0,0,-5)
-					end
-				end
-			end
-		end)
-	end)
-	MainSection:NewTextBox("vr user to annoy", "put user here to annoy then click the toggle annoy or weld", function(txt)
-		getgenv().annoyer = txt
-	end)
-	MainSection:NewToggle("annoy VR User", "loop teleports to a vr user and block their vision use fly with this in iy or sum", function(state)
-		getgenv().annoyvr = state
-		local player = getgenv().annoyer
-		local targname = ""
-		local targchar
-		for i, v in pairs(game:GetService("Players"):GetPlayers()) do
-			if string.sub(string.lower(v.Name), 0, #player) == string.lower(player) or string.sub(string.lower(v.DisplayName), 0, #player) == string.lower(player) and v ~= game:GetService("Players").LocalPlayer  then
-				targname = v
-			end
-		end
-		for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
-			if string.sub(v.Name, -4) == "Head" and tonumber(string.sub(v.Name, 1, -5)) == targname.UserId then
-				targchar = v
-			end
-		end
-		for i, v in pairs(targchar:GetChildren()) do
-			if v.Name == "Head" then
-				annoy = v
-			end
-		end
-		task.spawn(function()
-			while true do
-				task.wait()
-				if not getgenv().annoyvr then
-					break
-				end
-				for i, v in pairs(targchar:GetChildren()) do
-					if v.Name == "Head" then
-						game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = v.CFrame * CFrame.new(0, 2, -24)
-					end
-				end
-			end
-		end)
-	end)
-else
-	Library.Notify("VR Version Loaded.", "", 5)
-	local Players = Window:NewTab("Players", 2795572800)
-	local PlayersSection = Players:NewSection("Players")
-	for i, v in pairs(game:GetService("Players"):GetPlayers()) do
-		if v ~= game:GetService("Players").LocalPlayer then
-			PlayersSection:NewButton(v.DisplayName, "selects a player by display name", function()
-				getgenv().annoyer = v
-			end)
-			task.wait()
-		end
-	end
-	PlayersSection:NewButton("Refresh Player list", "reloads script", function()
-		for i, v in pairs(game:GetService("CoreGui"):GetChildren()) do
-			if v.Name == "skyhub" then
-				v:Destroy()
-			end
-		end
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt"))()
-		game:GetService("Workspace").Camera.BlurSnox:Destroy()
-		game:GetService("Lighting")[" "]:Destroy()
-	end)
-	MainSection:NewButton("Tp to VR User", "teleports to a vr user", function()
-		local targname = getgenv().annoyer
-		local targchar
-		for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
-			if string.sub(v.Name, -4) == "Head" and tonumber(string.sub(v.Name, 1, -5)) == targname.UserId then
-				targchar = v
-			end
-		end
-		for i, v in pairs(targchar:GetChildren()) do
-			if v.Name == "Head" then
-				game:GetService("Workspace").Camera.CFrame = v.CFrame * CFrame.new(0, 20, 80)
-			end
-		end
-	end)
-	MainSection:NewButton("Tp to User", "teleports to a user", function()
-		local targname = getgenv().annoyer
-		for i, v in pairs(targname.Character:GetChildren()) do
-			if v.Name == "HumanoidRootPart" then
-				game:GetService("Workspace").Camera.CFrame = v.CFrame * CFrame.new(0, 20, 50)
-			end
-		end
-	end)
-	MainSection:NewToggle("annoy VR User", "loop teleports to a vr user and block their vision select player in Players tab", function(state)
-		if state then
-			local player = getgenv().annoyer
-			local targname = getgenv().annoyer
-			local targchar
-			local ltargchar
-			for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
-				if string.sub(v.Name, -4) == "Head" and tonumber(string.sub(v.Name, 1, -5)) == targname.UserId then
-					targchar = v
-				end
-			end
-			for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
-				if string.sub(v.Name, -4) == "Head" and tonumber(string.sub(v.Name, 1, -5)) == game:GetService("Players").LocalPlayer.UserId then
-					ltargchar = v
-				end
-			end
-			for i, v in pairs(targchar:GetDescendants()) do
-				if v.Name == "Head" then
-					annoy = v
-				end
-			end
-			getgenv().annoyvr = game:GetService("RunService").RenderStepped:Connect(function()
-				for i, v in pairs(ltargchar:GetDescendants()) do
-					if v:IsA("Part") or v:IsA("BasePart") or v:IsA("MeshPart") then
-						v.CFrame = annoy.CFrame * CFrame.new(0, 2, -24)
-						task.wait()
-					end
-				end
-			end)
-		else
-			getgenv().annoyvr:Disconnect()
-		end
-	end)
-	MainSection:NewToggle("annoy User", "loop teleports to a user", function(state)
-		if state then
-			local player = getgenv().annoyer
-			local targname = getgenv().annoyer
-			local targchar
-			local ltargchar
-			for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
-				if string.sub(v.Name, -4) == "Head" and tonumber(string.sub(v.Name, 1, -5)) == targname.UserId then
-					targchar = v
-				end
-			end
-			for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
-				if string.sub(v.Name, -4) == "Head" and tonumber(string.sub(v.Name, 1, -5)) == game:GetService("Players").LocalPlayer.UserId then
-					ltargchar = v
-				end
-			end
-			for i, v in pairs(targchar:GetDescendants()) do
-				if v.Name == "HumanoidRootPart" then
-					annoy = v
-				end
-			end
-			getgenv().annoyvr = game:GetService("RunService").RenderStepped:Connect(function()
-				for i, v in pairs(ltargchar:GetDescendants()) do
-					if v:IsA("Part") or v:IsA("BasePart") or v:IsA("MeshPart") then
-						v.CFrame = annoy.CFrame
-						task.wait()
-					end
-				end
-			end)
-		else
-			getgenv().annoyvr:Disconnect()
-		end
-	end)
-	MainSection:NewToggle("Invisible", "loop teleports all parts of localplayer hella high", function(state)
-		local ltargchar
-		for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
-			if string.sub(v.Name, -4) == "Head" and tonumber(string.sub(v.Name, 1, -5)) == game:GetService("Players").LocalPlayer.UserId then
-				ltargchar = v
-			end
-		end
-		if state then
-			getgenv().invisible = game:GetService("RunService").RenderStepped:Connect(function()
-				for i, v in pairs(ltargchar:GetDescendants()) do
-					if v:IsA("Part") or v:IsA("BasePart") or v:IsA("MeshPart") then
-						v.CFrame = CFrame.new(0, 99999, 0)
-						task.wait()
-					end
-				end
-			end)
-		else
-			getgenv().invisible:Disconnect()
-			for i, v in pairs(ltargchar:GetDescendants()) do
-				if v:IsA("Part") or v:IsA("BasePart") or v:IsA("MeshPart") then
-					v.CFrame = CFrame.new(0, 0, 0)
-					task.wait()
-				end
-			end
-		end
-	end)
-	MainSection:NewButton("FE Bring all props", "loop teleports all props to localplayer NOTE MOST OF THEM ARE NOT VISIBLE TO OTHERS BUT SOME ARE AND IF U SPAM IT MORE WILL BE FE", function()
-		local ltargchar
-		for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
-			if string.sub(v.Name, -4) == "Head" and tonumber(string.sub(v.Name, 1, -5)) == game:GetService("Players").LocalPlayer.UserId then
-				ltargchar = v
-			end
-		end
-		for i, v in pairs(game:GetService("Workspace").Props:GetChildren()) do
-			if v:IsA("Model") then
-				for _, prop in pairs(v:GetDescendants()) do
-					if prop:IsA("Part") or prop:IsA("MeshPart") or prop:IsA("BasePart") then
-						prop.CFrame = game:GetService("Workspace"):WaitForChild("Camera").CFrame * CFrame.new(0,-10,-50)
-					end
-				end
-			end
-		end
-	end)
-end
 local Player = Window:NewTab("Player", 2795572800)
 local PlayerSection = Player:NewSection("Player")
 PlayerSection:NewSlider("WalkSpeed", "Changes how fast you walk", 500, 1, function(v)
