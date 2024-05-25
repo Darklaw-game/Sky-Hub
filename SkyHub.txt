@@ -190,19 +190,18 @@ local IsOnMobile = table.find({
 	Enum.Platform.IOS,
 	Enum.Platform.Android
 }, UserInputService:GetPlatform())
-
+local iswave = false
+if detourfunction then
+	if not IsOnMobile then
+		iswave = true
+	end
+end
 if IsOnMobile then
 	_G.infydtype = "https://raw.githubusercontent.com/yofriendfromschool1/mobile-delta-inf-yield/main/deltainfyield.txt"
 elseif iswave then
 	_G.infydtype = "https://raw.githubusercontent.com/yofriendfromschool1/wave_fixedscripts/main/iy.lua"
 else
 	_G.infydtype = "https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"
-end
-local iswave = false
-if detourfunction then
-	if not IsOnMobile then
-		iswave = true
-	end
 end
 
 _G.lmao24 = "loo"
@@ -598,13 +597,13 @@ else
 	end)
 	PlayerSection:NewButton("Anti Lag/Low GFX", "makes you less laggy and helps boost fps/performance", function()
 		local Terrain = game:GetService("Workspace"):FindFirstChildOfClass('Terrain')
+		Lighting = game:GetService("Lighting")
 		Terrain.WaterWaveSize = 0
 		Terrain.WaterWaveSpeed = 0
 		Terrain.WaterReflectance = 0
 		Terrain.WaterTransparency = 0
 		Lighting.GlobalShadows = false
 		Lighting.FogEnd = 9e9
-		settings().Rendering.QualityLevel = 1
 		for i,v in pairs(game:GetDescendants()) do
 			if v:IsA("Part") or v:IsA("UnionOperation") or v:IsA("MeshPart") or v:IsA("CornerWedgePart") or v:IsA("TrussPart") then
 				v.Material = "Plastic"
@@ -626,13 +625,13 @@ else
 		game:GetService("Workspace").DescendantAdded:Connect(function(child)
 			task.spawn(function()
 				if child:IsA('ForceField') then
-					RunService.Heartbeat:Wait()
+					game:GetService("RunService").Heartbeat:Wait()
 					child:Destroy()
 				elseif child:IsA('Sparkles') then
-					RunService.Heartbeat:Wait()
+					game:GetService("RunService").Heartbeat:Wait()
 					child:Destroy()
 				elseif child:IsA('Smoke') or child:IsA('Fire') then
-					RunService.Heartbeat:Wait()
+					game:GetService("RunService").Heartbeat:Wait()
 					child:Destroy()
 				end
 			end)
