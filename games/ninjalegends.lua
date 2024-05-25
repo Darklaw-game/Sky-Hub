@@ -482,13 +482,13 @@ PlayerSection:NewSlider("Max Camera Zoom", "Changes zoom distance of camera", 99
 end)
 PlayerSection:NewButton("Anti Lag/Low GFX", "makes you less laggy and helps boost fps/performance", function()
 	local Terrain = game:GetService("Workspace"):FindFirstChildOfClass('Terrain')
+	Lighting = game:GetService("Lighting")
 	Terrain.WaterWaveSize = 0
 	Terrain.WaterWaveSpeed = 0
 	Terrain.WaterReflectance = 0
 	Terrain.WaterTransparency = 0
 	Lighting.GlobalShadows = false
 	Lighting.FogEnd = 9e9
-	settings().Rendering.QualityLevel = 1
 	for i, v in pairs(game:GetDescendants()) do
 		if v:IsA("Part") or v:IsA("UnionOperation") or v:IsA("MeshPart") or v:IsA("CornerWedgePart") or v:IsA("TrussPart") then
 			v.Material = "Plastic"
@@ -510,13 +510,13 @@ PlayerSection:NewButton("Anti Lag/Low GFX", "makes you less laggy and helps boos
 	game:GetService("Workspace").DescendantAdded:Connect(function(child)
 		task.spawn(function()
 			if child:IsA('ForceField') then
-				RunService.Heartbeat:Wait()
+				game:GetService("RunService").Heartbeat:Wait()
 				child:Destroy()
 			elseif child:IsA('Sparkles') then
-				RunService.Heartbeat:Wait()
+				game:GetService("RunService").Heartbeat:Wait()
 				child:Destroy()
 			elseif child:IsA('Smoke') or child:IsA('Fire') then
-				RunService.Heartbeat:Wait()
+				game:GetService("RunService").Heartbeat:Wait()
 				child:Destroy()
 			end
 		end)
