@@ -407,6 +407,12 @@ end)
 MainSection:NewButton("Ezhub", "130+ games", function()--
 	loadstring(game:HttpGet(('https://raw.githubusercontent.com/debug420/Ez-Industries-Launcher-Data/master/Launcher.lua'), true))()--
 end)
+MainSection:NewButton("Highlight Hub", "idk", function()--
+	loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/75128ac7f49f9c3017533547d8e13046.lua"))()
+end)
+MainSection:NewButton("Highlight Hub 2?", "idk", function()--
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/ThatSick/ArrayField/a1108a0d428bb86709119585e55d08dffe3f5fff/MyArrayV6"))()
+end)
 MainSection:NewButton("CocoHub", "idk", function()
 	loadstring(game:HttpGet(('https://raw.githubusercontent.com/MarsQQ/CocoHub/master/CocoZHub'), true))()
 end)
