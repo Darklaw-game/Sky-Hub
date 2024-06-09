@@ -468,6 +468,22 @@ MainSection:NewTextBox("MM2 nuke spray decal all players", "MM2 nuke spray decal
 		end
 	end
 end)
+MainSection:NewTextBox("MM2 nuke spray decal WHOLE MAP", "MM2 nuke spray decal WHOLE MAP put decal id here need spray obv", function(lolid)
+	getgenv().decaltoid = lolid
+	for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+		if v:IsA("Part") or v:IsA("MeshPart") or v:IsA("BasePart") then
+			local args = {
+				[1] = 80373024,
+				[2] = Enum.NormalId.Front,
+				[3] = 99999999,
+				[4] = v,
+				[5] = CFrame.new(v.Position)
+			}
+			
+			game:GetService("Players").LocalPlayer.Character.SprayPaint.Remote:FireServer(unpack(args))
+		end
+	end
+end)
 MainSection:NewToggle("LOOP MM2 nuke spray decal all players/LAGS SO BAD", "LOOP MM2 nuke spray decal all players LAGS SM need spray obv", function(toggler)
 	getgenv().BROTHISLAGSSM = toggler
 	task.spawn(function()
@@ -484,6 +500,30 @@ MainSection:NewToggle("LOOP MM2 nuke spray decal all players/LAGS SO BAD", "LOOP
 						[3] = 99999999,
 						[4] = v.Character.HumanoidRootPart,
 						[5] = CFrame.new(v.Character:WaitForChild("HumanoidRootPart").Position)
+					}
+					
+					game:GetService("Players").LocalPlayer.Character.SprayPaint.Remote:FireServer(unpack(args))
+				end
+			end
+		end
+	end)
+end)
+MainSection:NewToggle("LOOP MM2 nuke WHOLE MAP/LAGS SO BAD", "LOOP MM2 nuke spray WHOLE MAP LAGS SM need spray obv", function(toggler)
+	getgenv().BROTHISLAGSSM = toggler
+	task.spawn(function()
+		while true do
+			task.wait()
+			if not getgenv().BROTHISLAGSSM then
+				break
+			end
+			for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+				if v:IsA("Part") or v:IsA("MeshPart") or v:IsA("BasePart") then
+					local args = {
+						[1] = 80373024,
+						[2] = Enum.NormalId.Front,
+						[3] = 99999999,
+						[4] = v,
+						[5] = CFrame.new(v.Position)
 					}
 					
 					game:GetService("Players").LocalPlayer.Character.SprayPaint.Remote:FireServer(unpack(args))
