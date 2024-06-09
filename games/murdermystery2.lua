@@ -452,6 +452,46 @@ end)
 MainSection:NewButton("MM2 nuke spray decal whole map", "need spray obv", function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Bac0nHck/Scripts/main/Nuke%20MM2"))()
 end)
+MainSection:NewTextBox("MM2 nuke spray decal all players", "MM2 nuke spray decal all players put decal id here need spray obv", function(lolid)
+	getgenv().decaltoid = lolid
+	for i,v in pairs(game:GetService("Players"):GetPlayers()) do
+		if v.Character and v.Character.HumanoidRootPart then
+			local args = {
+				[1] = tonumber(lolid) or 80373024,
+				[2] = Enum.NormalId.Front,
+				[3] = 99999999,
+				[4] = v.Character.HumanoidRootPart,
+				[5] = CFrame.new(v.Character:WaitForChild("HumanoidRootPart").Position)
+			}
+			
+			game:GetService("Players").LocalPlayer.Character.SprayPaint.Remote:FireServer(unpack(args))
+		end
+	end
+end)
+MainSection:NewToggle("LOOP MM2 nuke spray decal all players/LAGS SO BAD", "LOOP MM2 nuke spray decal all players LAGS SM need spray obv", function(toggler)
+	getgenv().BROTHISLAGSSM = toggler
+	task.spawn(function()
+		while true do
+			task.wait()
+			if not getgenv().BROTHISLAGSSM then
+				break
+			end
+			for i,v in pairs(game:GetService("Players"):GetPlayers()) do
+				if v.Character and v.Character.HumanoidRootPart then
+					local args = {
+						[1] = tonumber(getgenv().decaltoid) or 80373024,
+						[2] = Enum.NormalId.Front,
+						[3] = 99999999,
+						[4] = v.Character.HumanoidRootPart,
+						[5] = CFrame.new(v.Character:WaitForChild("HumanoidRootPart").Position)
+					}
+					
+					game:GetService("Players").LocalPlayer.Character.SprayPaint.Remote:FireServer(unpack(args))
+				end
+			end
+		end
+	end)
+end)
 MainSection:NewButton("Frozen Hub", "Hub", function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/FrozenScripts/frozenhubb/main/frozen777", true))()
 end)
