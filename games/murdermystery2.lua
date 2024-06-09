@@ -452,6 +452,114 @@ end)
 MainSection:NewButton("MM2 nuke spray decal whole map", "need spray obv", function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Bac0nHck/Scripts/main/Nuke%20MM2"))()
 end)
+MainSection:NewButton("NUKE BIGGEST NUKE", "need spray obv", function()
+	game:GetService("RunService").RenderStepped:Connect(function()
+		for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+			if v:IsA("Part") or v:IsA("MeshPart") or v:IsA("BasePart") then
+				local args = {
+					[1] = tonumber(getgenv().decaltoid) or 80373024,
+					[2] = Enum.NormalId.Front,
+					[3] = 99999999,
+					[4] = v,
+					[5] = CFrame.new(v.Position)
+				}
+				
+				game:GetService("Players").LocalPlayer.Character.SprayPaint.Remote:FireServer(unpack(args))
+			end
+		end
+		game:GetService("Workspace"):FindFirstChild("Spray"):Destroy()
+		task.spawn(function()
+			game:GetService("RunService").RenderStepped:Connect(function()
+				for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+					if v:IsA("Part") or v:IsA("MeshPart") or v:IsA("BasePart") then
+						local args = {
+							[1] = tonumber(getgenv().decaltoid) or 80373024,
+							[2] = Enum.NormalId.Front,
+							[3] = 99999999,
+							[4] = v,
+							[5] = CFrame.new(v.Position)
+						}
+						
+						game:GetService("Players").LocalPlayer.Character.SprayPaint.Remote:FireServer(unpack(args))
+					end
+				end
+				game:GetService("Workspace"):FindFirstChild("Spray"):Destroy()
+				task.spawn(function()
+					game:GetService("RunService").RenderStepped:Connect(function()
+						for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+							if v:IsA("Part") or v:IsA("MeshPart") or v:IsA("BasePart") then
+								local args = {
+									[1] = tonumber(getgenv().decaltoid) or 80373024,
+									[2] = Enum.NormalId.Front,
+									[3] = 99999999,
+									[4] = v,
+									[5] = CFrame.new(v.Position)
+								}
+								
+								game:GetService("Players").LocalPlayer.Character.SprayPaint.Remote:FireServer(unpack(args))
+							end
+						end
+						game:GetService("Workspace"):FindFirstChild("Spray"):Destroy()
+						task.spawn(function()
+							game:GetService("RunService").RenderStepped:Connect(function()
+								for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+									if v:IsA("Part") or v:IsA("MeshPart") or v:IsA("BasePart") then
+										local args = {
+											[1] = tonumber(getgenv().decaltoid) or 80373024,
+											[2] = Enum.NormalId.Front,
+											[3] = 99999999,
+											[4] = v,
+											[5] = CFrame.new(v.Position)
+										}
+										
+										game:GetService("Players").LocalPlayer.Character.SprayPaint.Remote:FireServer(unpack(args))
+									end
+								end
+								game:GetService("Workspace"):FindFirstChild("Spray"):Destroy()
+								task.spawn(function()
+									game:GetService("RunService").RenderStepped:Connect(function()
+										for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+											if v:IsA("Part") or v:IsA("MeshPart") or v:IsA("BasePart") then
+												local args = {
+													[1] = tonumber(getgenv().decaltoid) or 80373024,
+													[2] = Enum.NormalId.Front,
+													[3] = 99999999,
+													[4] = v,
+													[5] = CFrame.new(v.Position)
+												}
+												
+												game:GetService("Players").LocalPlayer.Character.SprayPaint.Remote:FireServer(unpack(args))
+											end
+										end
+										game:GetService("Workspace"):FindFirstChild("Spray"):Destroy()
+										task.spawn(function()
+											game:GetService("RunService").RenderStepped:Connect(function()
+												for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+													if v:IsA("Part") or v:IsA("MeshPart") or v:IsA("BasePart") then
+														local args = {
+															[1] = tonumber(getgenv().decaltoid) or 80373024,
+															[2] = Enum.NormalId.Front,
+															[3] = 99999999,
+															[4] = v,
+															[5] = CFrame.new(v.Position)
+														}
+														
+														game:GetService("Players").LocalPlayer.Character.SprayPaint.Remote:FireServer(unpack(args))
+													end
+												end
+												game:GetService("Workspace"):FindFirstChild("Spray"):Destroy()
+											end)
+										end)
+									end)
+								end)
+							end)
+						end)
+					end)
+				end)
+			end)
+		end)
+	end)
+end)
 MainSection:NewTextBox("MM2 nuke spray decal all players", "MM2 nuke spray decal all players put decal id here need spray obv", function(lolid)
 	getgenv().decaltoid = lolid
 	for i,v in pairs(game:GetService("Players"):GetPlayers()) do
@@ -473,7 +581,7 @@ MainSection:NewTextBox("MM2 nuke spray decal WHOLE MAP", "MM2 nuke spray decal W
 	for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
 		if v:IsA("Part") or v:IsA("MeshPart") or v:IsA("BasePart") then
 			local args = {
-				[1] = 80373024,
+				[1] = tonumber(getgenv().decaltoid) or 80373024,
 				[2] = Enum.NormalId.Front,
 				[3] = 99999999,
 				[4] = v,
@@ -519,7 +627,7 @@ MainSection:NewToggle("LOOP MM2 nuke WHOLE MAP/LAGS SO BAD", "LOOP MM2 nuke spra
 			for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
 				if v:IsA("Part") or v:IsA("MeshPart") or v:IsA("BasePart") then
 					local args = {
-						[1] = 80373024,
+						[1] = tonumber(getgenv().decaltoid) or 80373024,
 						[2] = Enum.NormalId.Front,
 						[3] = 99999999,
 						[4] = v,
