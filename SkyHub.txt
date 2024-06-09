@@ -303,7 +303,7 @@ end
 task.wait()
 save()
 -- Da Hood
-if game.PlaceId == 2788229376 then
+if game.PlaceId == 2788229376 or game.PlaceId == 7213786345 or game.PlaceId == 16033173781 then
 	loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/games/dahood.lua'))()
 -- Arsenal
 elseif game.PlaceId == 286090429 then
