@@ -14,9 +14,9 @@ Guess the drawing!, VR Hangout, VR Hands Legacy and Universal.
 
 Rebuilt On IllusionHub
 
-Last Updated 05/23/2024
+Last Updated 07/11/2024
 
-Added VR Hangout, and VR Hands Legacy
+Added btools
 
 Library by Lua_u
 
@@ -2283,7 +2283,7 @@ else
 	local ObbysSection = Obbys:NewSection("Obbys")
 	ObbysSection:NewButton("Method 1", "auto farm/tp to end if supported game", function()
 		if game.PlaceId == 5972698540 then -- easy obby
-			game.StarterGui:SetCore("SendNotification",  {
+			game:GetService("StarterGui"):SetCore("SendNotification",  {
 				Title = "Working";
 				Text = "its working just please wait";
 				Icon = "";
@@ -2368,7 +2368,7 @@ else
 		elseif game.PlaceId == 12357508217 then
 			game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Checkpoints["60"].Detector.CFrame
 		else -- universal
-			game.StarterGui:SetCore("SendNotification",  {
+			game:GetService("StarterGui"):SetCore("SendNotification",  {
 				Title = "Game Not Supported";
 				Text = "game not supported so it may be trash or not work at all";
 				Icon = "";
@@ -2394,7 +2394,7 @@ else
 					wait(6) -- Adjust the wait time as needed
 				end
 			else
-				game.StarterGui:SetCore("SendNotification",  {
+				game:GetService("StarterGui"):SetCore("SendNotification",  {
 					Title = "Could not find path";
 					Text = "Could not find path including all the stages/checkpoints try the other method";
 					Icon = "";
@@ -2405,7 +2405,7 @@ else
 		end
 	end)
 	ObbysSection:NewButton("Method 2", "fire all touchinterests", function()
-		game.StarterGui:SetCore("SendNotification",  {
+		game:GetService("StarterGui"):SetCore("SendNotification",  {
 			Title = "if this doesnt work for you try method 3";
 			Text = "executing in 5 seconds";
 			Icon = "";
@@ -2438,7 +2438,7 @@ else
 		end
 	end)
 	ObbysSection:NewButton("Method 3", "fire all touchinterests pt2", function()
-		game.StarterGui:SetCore("SendNotification",  {
+		game:GetService("StarterGui"):SetCore("SendNotification",  {
 			Title = "if this doesnt work for you join the discord and open a ticket";
 			Text = "executing in 5 seconds";
 			Icon = "";
@@ -2462,13 +2462,83 @@ else
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/FE%20Trolling%20GUI.luau"))()
 	end)
 	MainSection:NewButton("Btools", "Btools", function()
-		game.StarterGui:SetCoreGuiEnabled(2, true)
+		game:GetService("StarterGui"):SetCoreGuiEnabled(2, true)
 		a = Instance.new("HopperBin", game:GetService("Players").LocalPlayer.Backpack)
 		a.BinType = 2
 		b = Instance.new("HopperBin", game:GetService("Players").LocalPlayer.Backpack)
 		b.BinType = 3
 		c = Instance.new("HopperBin", game:GetService("Players").LocalPlayer.Backpack)
 		c.BinType = 4
+	end)
+	MainSection:NewButton("Btools 2", "Btools 2", function()
+		local LocalPlayer = game:GetService("Players").LocalPlayer
+		local mouse = LocalPlayer:GetMouse()
+		local movetool = Instance.new("Tool", LocalPlayer.Backpack)
+		local deletetool = Instance.new("Tool", LocalPlayer.Backpack)
+		local undotool = Instance.new("Tool", LocalPlayer.Backpack)
+		local identifytool = Instance.new("Tool", LocalPlayer.Backpack)
+		local movedetect = false
+		local movingpart = nil
+		local movetransparency = 0
+		if editedparts == nil then
+			editedparts = {}
+			parentfix = {}
+			positionfix = {}
+		end
+		deletetool.Name = "Delete"
+		undotool.Name = "Undo"
+		identifytool.Name = "Identify"
+		movetool.Name = "Move"
+		undotool.CanBeDropped = false
+		deletetool.CanBeDropped = false
+		identifytool.CanBeDropped = false
+		movetool.CanBeDropped = false
+		undotool.RequiresHandle = false
+		deletetool.RequiresHandle = false
+		identifytool.RequiresHandle = false
+		movetool.RequiresHandle = false
+		deletetool.Activated:Connect(function()
+			warn("Delete Tool", mouse.Target.Name)
+			table.insert(editedparts, mouse.Target)
+			table.insert(parentfix, mouse.Target.Parent)
+			table.insert(positionfix, mouse.Target.CFrame)
+			mouse.Target.Parent = nil
+		end)
+		undotool.Activated:Connect(function()
+			warn("Undo Tool", editedparts[#editedparts].Name)
+			editedparts[#editedparts].Parent = parentfix[#parentfix]
+			editedparts[#editedparts].CFrame = positionfix[#positionfix]
+			table.remove(positionfix, #positionfix)
+			table.remove(editedparts, #editedparts)
+			table.remove(parentfix, #parentfix)
+		end)
+		identifytool.Activated:Connect(function()
+			warn("Identify Tool", "Instance: " .. mouse.Target.ClassName .. "\nName: " .. mouse.Target.Name)
+		end)
+		movetool.Activated:Connect(function()
+			warn("Move Tool", mouse.Target.Name)
+			movingpart = mouse.Target
+			movedetect = true
+			movingpart.CanCollide = false
+			movetransparency = movingpart.Transparency
+			movingpart.Transparency = 0.5
+			mouse.TargetFilter = movingpart
+			table.insert(editedparts, movingpart)
+			table.insert(parentfix, movingpart.Parent)
+			table.insert(positionfix, movingpart.CFrame)
+			movingpart.Transparency = movingpart.Transparency / 2
+			repeat
+				mouse.Move:Wait()
+				movingpart.CFrame = CFrame.new(mouse.Hit.p)
+			until movedetect == false
+		end)
+		movetool.Deactivated:Connect(function()
+			warn("Move Tool", mouse.Target.Name)
+			movingpart.CanCollide = true
+			movedetect = false
+			mouse.TargetFilter = nil
+			movingpart.Transparency = movetransparenc
+		end)
 	end)
 	MainSection:NewButton("GabX", "GabX", function()
 		loadstring(game:HttpGet(('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub-Backup/main/GabX'), true))()
