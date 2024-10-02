@@ -9,16 +9,15 @@ Work At A Pizza Place, VR Hands, Adopt Me, Jailbreak, Prison Life,
 Build A Boat For Treasure, Gorilla Tag Professional, Murder Mystery 2, Blox Fruits, Counter Blox, Mic Up, Neighbors, Natural Disaster Survival, Ro-Ghoul, Blade Ball, Pet Simulator X,
 Pet Simulator 99, Legends of Speed, BrookHaven RP, Bedwars, CHAOS, Ninja Legends, Bayside High School, BIG PaintBall!, BIG PaintBall 2!, Muscle Legends, Road to Grambys, Bloxburg, Cursed Sea, Doors,
 Hide and Seek Extreme, Life in Paradise, Adopt and Raise a Baby, Zombie Attack, Super Simon Says, Life Sentence, Rainbow Friends, Infectious Smile, Colony Survival, Red Light, Green Light, 3008, 
-Guess the drawing!, VR Hangout, VR Hands Legacy and Universal.
+Guess the drawing!, VR Hangout, VR Hands Legacy, RIVALS, Lifting Simulator and Universal.
 50+ games (Including some obbys)
 
 Rebuilt On IllusionHub
 
-Last Updated 07/11/2024
+Last Updated 10/02/2024
 
-Added btools
-
-Library by Lua_u
+fixed scroll list limit (hiding sum tabs on universal mode) and added RIVALS and Lifting Simulator, removed rejgames.
+Library by Lua_u (modified by jazminethecooles2001)
 
 executor ui in fencing and universal made by espresso0069
 
@@ -446,8 +445,14 @@ elseif game.PlaceId == 8769714622 then
 -- VR Hands Legacy
 elseif game.PlaceId == 16912831373 then
 	loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/games/vrhandslegacy.lua'))()
--- Universal
+elseif game.PlaceId == 17625359962 or  then
+	loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/games/rivals.lua'))()
+-- RIVALS
+elseif game.PlaceId == 3652625463 then
+	loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/games/liftingsimulator.lua'))()
+-- Lifting Simulator
 else
+-- Universal
 	local Library = loadstring(game:HttpGet(_G.guidragtype))()
 	loadsettings()
 	if IsOnMobile or VREnabled then
@@ -1222,6 +1227,7 @@ else
 		getgenv().saveinstance = nil
 		loadstring(game:HttpGet("https://github.com/MuhXd/Roblox-mobile-script/blob/main/Arecus-X-Neo/Saveinstance.lua?raw=true"))();
 	end)
+	--[[
 	local Games = Window:NewTab("Games", 12689980465)
 	local GamesSection = Games:NewSection("Games")
 	GamesSection:NewButton("Da Hood", "Teleports you to game", function()
@@ -1419,7 +1425,9 @@ else
 	GamesSection:NewButton("VR Hands Legacy", "Teleports you to game", function()
 		queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
 		game:GetService("TeleportService"):Teleport(16912831373, game:GetService("Players").LocalPlayer)
-	end)
+	end) ]]
+	-- test
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/tpgames.lua"))()
 	local Hubs = Window:NewTab("Hubs", 7360649366)
 	local HubsSection = Hubs:NewSection("Hubs")
 	if IsOnMobile or VREnabled then
