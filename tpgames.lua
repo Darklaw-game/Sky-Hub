@@ -1,5 +1,6 @@
 local Games = Window:NewTab("Games", 12689980465)
 local GamesSection = Games:NewSection("Games")
+queueteleport = (syn and syn.queue_on_teleport) or queue_on_teleport or (fluxus and fluxus.queue_on_teleport)
 GamesSection:NewButton("Da Hood", "Teleports you to game", function()
 	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
 	game:GetService("TeleportService"):Teleport(2788229376, game:GetService("Players").LocalPlayer)
