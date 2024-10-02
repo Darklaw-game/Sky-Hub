@@ -504,7 +504,7 @@ else
 			Library.Notify("OMG VULN FOUND","If you dm me in discord: jazminethecooles2001 or post the game u are currently playing in the discord I will give you a role. PLSSS",30)
 		end
 	end
-	local Window = Library.CreateLib("Sky Hub", OptTheme)
+	getgenv().Window = Library.CreateLib("Sky Hub", OptTheme)
 	local Discord = Window:NewTab("Discords",16795709379)
 	local DiscordSection = Discord:NewSection("Discords")
 	DiscordSection:NewButton("Discord Invite", "copys discord link", function()
