@@ -1,3 +1,23 @@
+if game:GetService("CoreGui"):FindFirstChild("incognito") then
+    oldstring = loadstring
+    getfenv().loadstring = function(code)
+        local source = code
+        source = source:gsub("(%a+)%s*([%+%-%*/])=%s*", "%1 = %1 %2 ")
+        return oldstring(source)
+    end
+end
+if not getgenv then
+    getfenv().getgenv = function(layer)
+        return getfenv(layer)
+    end
+end
+local nosaves = false
+local saved_settings
+local settings = {
+	ui_bind = "Enum.KeyCode.RightControl";
+	opaque = 0.4;
+}
+queueteleport = (syn and syn.queue_on_teleport) or queue_on_teleport or (fluxus and fluxus.queue_on_teleport)
 httprequest = (syn and syn.request) or (http and http.request) or http_request or (fluxus and fluxus.request) or request
 everyClipboard = setclipboard or toclipboard or set_clipboard or setrbxclipboard or (Clipboard and Clipboard.set)
 if not everyClipboard then
@@ -545,3 +565,404 @@ MainSection:NewToggle("Auto Buy Body Alter", "auto buys body alters", function(V
 		end
 	end)
 end)
+local Settingss = Window:NewTab("Settings", 11385220704)
+local SettingssSection = Settingss:NewSection("Settings")
+SettingssSection:NewDropdown("UI Toggle Bind", "Changes Toggle Bind for Sky Hub Default is Right Control ONLY ON PC", {
+	"Right Control",
+	"Left Control",
+	"Left Alt",
+	"Right Alt",
+	"Insert",
+	"End",
+	"Del/Delete",
+	"Left Shift",
+	"Right Shift",
+	"F1",
+	"Q",
+	"E",
+	"R",
+	"T",
+	"Y",
+	"U",
+	"P",
+	"Z",
+	"X",
+	"M",
+	"V",
+	"N",
+	"."
+}, function(currentoption)
+	if currentoption == "Right Control" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.RightControl"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "Left Control" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.LeftControl"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "Left Alt" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.LeftAlt"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "Right Alt" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.RightAlt"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "Insert" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.Insert"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "End" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.End"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "Del/Delete" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.Delete"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "Left Shift" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.LeftShift"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "Right Shift" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.RightShift"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "F1" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.F1"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "Q" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.Q"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "E" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.E"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "R" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.R"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "T" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.T"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "Y" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.Y"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "U" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.U"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "P" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.P"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "Z" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.Z"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "X" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.X"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "M" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.M"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "V" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.V"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "N" then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.N"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	elseif currentoption == "." then
+		getgenv().SkyhubKeybind = "Enum.KeyCode.Period"
+		ui_bind = getgenv().SkyhubKeybind
+		task.wait()
+		if writefile then
+			updatesaves()
+			task.wait()
+			loadsettings()
+		else
+			Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+		end
+		if not IsOnMobile then
+			Library.Notify("New Keybind: " .. tostring(getgenv().SkyhubKeybind), "Your new keybind to toggle the gui is: " .. tostring(getgenv().SkyhubKeybind), 5)
+		end
+	end
+end)
+SettingssSection:NewSlider("Blur/Opaque Intensitiy", "Changes blurryness", 1, 0, function(v)
+	getgenv().BlurIntes = v
+	opaque = getgenv().BlurIntes
+	task.wait()
+	if writefile then
+		updatesaves()
+		task.wait()
+		loadsettings()
+	else
+		Library.Notify("DOG SHIT EXECUTOR", "Doesnt have file functions lol", 5)
+	end
+end)
+SettingssSection:NewButton("Save Game", "Saves game MUST HAVE saveinstance()", function()
+	local SSSSSS = ""
+	if identifyexecutor then
+		SSSSSS = select(1, identifyexecutor())
+	end
+	if SSSSSS == "Krampus" then
+		saveplace({
+			FileName = "SkyHubSavedGame",
+			CopyToClipboard = true
+		})
+		return
+	end
+	if saveplace then
+		saveplace({
+			FileName = "SkyHubSavedGame"
+		})
+	end
+	if saveinstance then
+		saveinstance()
+	else
+		Library.Notify("Your executor doesnt have a saveinstance() function try Save Game 2", "", 10)
+	end
+end)
+SettingssSection:NewButton("Save Game 2", "Saves game dont need saveinstance()", function()
+	getgenv().saveinstance = nil
+	loadstring(game:HttpGet("https://github.com/MuhXd/Roblox-mobile-script/blob/main/Arecus-X-Neo/Saveinstance.lua?raw=true"))();
+end)
+local Games = Window:NewTab("Games", 12689980465)
+local GamesSection = Games:NewSection("Games")
+	
+local gamedata = loadstring(game:HttpGet("https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/tpgames.lua"))()
+
+for _, v in ipairs(gamedata) do
+	GamesSection:NewButton(v.name, "Teleports you to game", function()
+		queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/SkyHub.txt'))()")
+		game:GetService("TeleportService"):Teleport(v.placeId, game:GetService("Players").LocalPlayer)
+	end)
+end
