@@ -19,7 +19,7 @@ return {
     {name = "Natural Disaster Survival", placeId = 189707},
     {name = "Ro-Ghoul", placeId = 914010731},
     {name = "Blade Ball", placeId = 13772394625},
-    {name = "Pet Simulator X", placeId = 13772394625},
+    {name = "Pet Simulator X", placeId = 6284583030},
     {name = "Pet Simulator 99", placeId = 8737899170},
     {name = "Legends Of Speed", placeId = 3101667897},
     {name = "Brookhaven RP", placeId = 4924922222},
@@ -48,6 +48,6 @@ return {
     {name = "Guess the drawing!", placeId = 3281073759},
     {name = "VR Hangout", placeId = 8769714622},
     {name = "VR Hands Legacy", placeId = 16912831373},
-	{name = "RIVALS", placeId = 17625359962},
-	{name = "Lifting Simulator", placeId = 3652625463},
+    {name = "RIVALS", placeId = 17625359962},
+    {name = "Lifting Simulator", placeId = 3652625463},
 }
