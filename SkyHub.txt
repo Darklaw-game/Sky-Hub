@@ -445,7 +445,7 @@ elseif game.PlaceId == 8769714622 then
 -- VR Hands Legacy
 elseif game.PlaceId == 16912831373 then
 	loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/games/vrhandslegacy.lua'))()
-elseif game.PlaceId == 17625359962 or  then
+elseif game.PlaceId == 17625359962 then
 	loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/games/rivals.lua'))()
 -- RIVALS
 elseif game.PlaceId == 3652625463 then
