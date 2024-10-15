@@ -343,6 +343,9 @@ MainSection:NewButton("Lua'us Slient aim", "idk only works w setthreadidentity e
 	setthreadidentity(8)
 	print("Loaded lua_u's silent aim")
 end)
+MainSection:NewButton("Rivals gui", "made by skylee", function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub-Backup/main/Rivals/Rivals%20Latest.lua"))();
+end)
 MainSection:NewButton("Mobile Aimbot", "only use if your actually on mobile", function()
 	local Players = game:GetService("Players")
 	local UserInputService = game:GetService("UserInputService")
