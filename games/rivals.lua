@@ -346,6 +346,109 @@ end)
 MainSection:NewButton("Rivals gui", "made by skylee", function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub-Backup/main/Rivals/Rivals%20Latest.lua"))();
 end)
+MainSection:NewToggle("Loopclear Smoke Grenades", "basically disables Smoke Grenades client side", function(apple25)
+	getgenv().smokepack25 = apple25
+	task.spawn(function()
+		while task.wait() do
+			if not getgenv().smokepack25 then
+				break
+			end
+			for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
+				if v.Name == "Smoke Grenade" then
+					v:Destroy()
+				end
+			end
+		end
+	end)
+end)
+MainSection:NewToggle("Loopgoto Smoke Grenade", "basically loop tps to random spot in Smoke Grenades to hide", function(apple26)
+	getgenv().tpsmoke = apple26
+	task.spawn(function()
+		while task.wait() do
+			if not getgenv().tpsmoke then
+				break
+			end
+			for i, v in pairs(game:GetService("Workspace"):GetChildren()) do
+				if v.Name == "Smoke Grenade" and v.Size then
+					local smokeSize = v.Size
+					local randomOffset = Vector3.new(
+						(math.random() - 0.5) * smokeSize.X,
+						smokeSize.Y,
+						(math.random() - 0.5) * smokeSize.Z
+					)
+					local targetPosition = v.Position + randomOffset
+					game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = CFrame.new(targetPosition)
+				end
+			end
+		end
+	end)
+end)
+xrayEnabled = false
+MainSection:NewToggle("Loopxray", "basically u can see Smoke Grenades but transparent and everytrhing else", function(apple256)
+	getgenv().xraysmokes = apple256
+	xrayEnabled = apple256
+	task.spawn(function()
+		while task.wait() do
+			if not getgenv().xraysmokes then
+				v.LocalTransparencyModifier = 0
+				task.wait(0.1)
+				break
+			end
+			for _, v in pairs(workspace:GetDescendants()) do
+				if v:IsA("BasePart") and not v.Parent:FindFirstChildWhichIsA("Humanoid") and not v.Parent.Parent:FindFirstChildWhichIsA("Humanoid") then
+					v.LocalTransparencyModifier = xrayEnabled and 0.5 or 0
+				end
+			end
+		end
+	end)
+end)
+MainSection:NewToggle("No flashbang", "basically disables flashbang", function(apple2562)
+	getgenv().disbaflash = apple2562
+	task.spawn(function()
+		while task.wait() do
+			if not getgenv().disbaflash then
+				break
+			end
+			for _, v in pairs(game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")) do
+				if v:FindFirstChild("FlashbangGui") then
+					v:Destroy()
+				end
+			end
+		end
+	end)
+end)
+MainSection:NewToggle("No freeze", "basically disables freeze do loopws 25 in iy cant move head btw for sum reason", function(apple2562)
+	getgenv().dsadsadsa4r23 = apple2562
+	task.spawn(function()
+		while task.wait() do
+			if not getgenv().dsadsadsa4r23 then
+				break
+			end
+			game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid").WalkSpeed = 25
+			game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid").PlatformStand = false
+			for _, v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
+				if v:IsA("Part") or v:IsA("BasePart") or v:IsA("MeshPart") and v.Anchored then
+					v.Anchored = false
+				end
+				if v.Name == "FreezeRayExplosionEffect" then
+					v:Destroy()
+				end
+				if game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid").Sit == true then
+					game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid").Jump = true
+					task.wait(0.1)
+					game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid").Jump = false
+				end
+			end
+		end
+	end)
+end)
+MainSection:NewButton("fix xray", "basically fixes xray", function()
+	for _, v in pairs(workspace:GetDescendants()) do
+		if v:IsA("BasePart") and not v.Parent:FindFirstChildWhichIsA("Humanoid") and not v.Parent.Parent:FindFirstChildWhichIsA("Humanoid") then
+			v.LocalTransparencyModifier = 0
+		end
+	end
+end)
 MainSection:NewButton("Mobile Aimbot", "only use if your actually on mobile", function()
 	local Players = game:GetService("Players")
 	local UserInputService = game:GetService("UserInputService")
