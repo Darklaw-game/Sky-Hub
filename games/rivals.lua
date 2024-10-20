@@ -442,6 +442,78 @@ MainSection:NewToggle("No freeze", "basically disables freeze do loopws 25 in iy
 		end
 	end)
 end)
+MainSection:NewToggle("auto Dodge RPG", "if rpg is 40 studs or less from you, you will get tp back 60 studs", function(rpgd9)
+	if not rpgd9 then
+		getgenv().rpgdodge:Disconnect()
+		return
+	end
+	getgenv().rpgdodge = game:GetService("RunService").RenderStepped:Connect(function()
+		local function tpback()
+			local currentPosition = game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").Position
+			local lookVector = game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame.LookVector
+			local newPosition = currentPosition - lookVector * 60
+			game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = CFrame.new(newPosition, currentPosition)
+		end    
+		local rpg
+		for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
+			if v.Name == "RPG" then
+				rpg = v
+			end
+		end
+		if rpg and rpg:IsA("BasePart") then
+			local distance = (rpg.Position - game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").Position).Magnitude
+			if distance <= 40 then
+				tpback()
+			end
+		end
+	end)
+end)
+MainSection:NewToggle("auto Dodge Grenade Launcher", "if grenade is 40 studs or less from you, you will get tp back 60 studs", function(grenl)
+	if not grenl then
+		getgenv().gdlaunchdodge:Disconnect()
+		return
+	end
+	getgenv().gdlaunchdodge = game:GetService("RunService").RenderStepped:Connect(function()
+		local function tpback()
+			local currentPosition = game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").Position
+			local lookVector = game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame.LookVector
+			local newPosition = currentPosition - lookVector * 60
+			game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = CFrame.new(newPosition, currentPosition)
+		end    
+		local gredlaunch
+		for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
+			if v.Name == "Grenade Launcher" then
+				gredlaunch = v
+			end
+		end
+		if gredlaunch and gredlaunch:IsA("BasePart") then
+			local distance = (gredlaunch.Position - game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").Position).Magnitude
+			if distance <= 40 then
+				tpback()
+			end
+		end
+	end)
+end)
+MainSection:NewToggle("auto Dodge Bow", "if bow is 40 studs or less from you, you will get tp side 10 studs", function(bowe)
+	if not bowe then
+		getgenv().bowdodge:Disconnect()
+		return
+	end
+	getgenv().bowdodge = game:GetService("RunService").RenderStepped:Connect(function()   
+		local Bowla
+		for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
+			if v.Name == "Bow" then
+				Bowla = v
+			end
+		end
+		if Bowla and Bowla:IsA("BasePart") then
+			local distance = (Bowla.Position - game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").Position).Magnitude
+			if distance <= 40 then
+				game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(5,0,0)
+			end
+		end
+	end)
+end)
 MainSection:NewButton("fix xray", "basically fixes xray", function()
 	for _, v in pairs(workspace:GetDescendants()) do
 		if v:IsA("BasePart") and not v.Parent:FindFirstChildWhichIsA("Humanoid") and not v.Parent.Parent:FindFirstChildWhichIsA("Humanoid") then
