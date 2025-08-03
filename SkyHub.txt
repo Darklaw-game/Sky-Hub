@@ -558,7 +558,7 @@ else
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/Infinite-Store/Infinite-Store/main/main.lua"))()
 	end)
 	AdminsSection:NewButton("Nameless Admin", "Admin", function()
-		loadstring(game:HttpGet('https://raw.githubusercontent.com/yofriendfromschool1/NamelessAdmin-NO-BYFRON-GUI/main/Source'))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/ltseverydayyou/Nameless-Admin/main/Source.lua"))()
 	end)
 	AdminsSection:NewButton("fates admin", "Admin", function()
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/fatesc/fates-admin/main/main.lua"))();
@@ -2493,3 +2493,4 @@ else
 		
 	end)
 end
+
